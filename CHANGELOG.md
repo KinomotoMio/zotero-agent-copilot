@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/KinomotoMio/zotero-agent-copilot/compare/zotero-agent-copilot-v0.1.0...zotero-agent-copilot-v0.2.0) (2026-03-31)
+
+
+### Features
+
+* initial public release ([ab6863e](https://github.com/KinomotoMio/zotero-agent-copilot/commit/ab6863e48bc787dc7b9fa5f3663affa7997ea084))
+
 ## [0.1.0] - 2026-03-31
 
 - 论文卡片笔记：为每个条目自动生成包含标题、作者、摘要、标签的 Markdown 摘要，同步为 Zotero 子笔记
