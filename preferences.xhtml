@@ -1,0 +1,88 @@
+<div xmlns="http://www.w3.org/1999/xhtml" class="zac-preferences-root">
+  <style>
+    .zac-preferences-root {
+      font: message-box;
+      margin: 16px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+      max-width: 760px;
+    }
+
+    label {
+      display: grid;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    input,
+    select {
+      font: inherit;
+      padding: 6px 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      font: inherit;
+      padding: 6px 12px;
+    }
+
+    .hint {
+      color: #555;
+      margin: 0;
+    }
+  </style>
+
+  <div class="stack">
+    <p class="hint">Claude Code and Codex launch from the library workspace root. Paper cards sync as managed notes, while MinerU outputs and workspace state sync through snapshot attachments.</p>
+
+    <label>
+      Workspace Base Path
+      <input id="workspaceBasePath" type="text" placeholder="~/Documents/Zotero Agent Copilot" />
+    </label>
+
+    <label>
+      Claude Executable Path
+      <input id="claudeExecutablePath" type="text" placeholder="claude" />
+    </label>
+
+    <label>
+      Codex Executable Path
+      <input id="codexExecutablePath" type="text" placeholder="codex" />
+    </label>
+
+    <label>
+      Default Agent
+      <select id="defaultAgent">
+        <option value="claude">Claude Code</option>
+        <option value="codex">Codex</option>
+      </select>
+    </label>
+
+    <label>
+      Terminal App
+      <input id="terminalApp" type="text" placeholder="Terminal" />
+    </label>
+
+    <label>
+      MinerU API Token
+      <input id="mineruApiToken" type="password" placeholder="Required for PDF to Markdown" />
+    </label>
+
+    <label>
+      MinerU API Base URL
+      <input id="mineruApiBaseUrl" type="text" placeholder="https://mineru.net/api/v4" />
+    </label>
+
+    <div class="actions">
+      <button id="saveButton" type="button">Save</button>
+      <button id="resetButton" type="button">Reset Defaults</button>
+    </div>
+  </div>
+</div>

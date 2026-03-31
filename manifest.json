@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Zotero Agent Copilot",
+  "version": "0.1.0",
+  "description": "Create resumable AI workspaces for Zotero items, capture MinerU Markdown outputs, and launch external coding agents.",
+  "homepage_url": "https://github.com/KinomotoMio/zotero-agent-copilot",
+  "applications": {
+    "zotero": {
+      "id": "zotero-agent-copilot@KinomotoMio.github.io",
+      "update_url": "https://raw.githubusercontent.com/KinomotoMio/zotero-agent-copilot/main/updates.json",
+      "strict_min_version": "8.0",
+      "strict_max_version": "8.0.*"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  build:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run tests
+        run: node --test tests/*.test.js
+
+      - name: Build XPI
+        run: node scripts/build-xpi.mjs
+
+      - name: Upload XPI to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./manifest.json').version")
+          gh release upload ${{ needs.release-please.outputs.tag_name }} \
+            dist/zotero-agent-copilot-${VERSION}.xpi
+
+      - name: Update updates.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./manifest.json').version")
+          TAG=${{ needs.release-please.outputs.tag_name }}
+          XPI_URL="https://github.com/KinomotoMio/zotero-agent-copilot/releases/download/${TAG}/zotero-agent-copilot-${VERSION}.xpi"
+          node -e "
+            const fs = require('fs');
+            const u = JSON.parse(fs.readFileSync('updates.json', 'utf8'));
+            u.addons['zotero-agent-copilot@KinomotoMio.github.io'].updates.unshift({
+              version: '${VERSION}',
+              update_link: '${XPI_URL}'
+            });
+            fs.writeFileSync('updates.json', JSON.stringify(u, null, 2) + '\n');
+          "
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates.json
+          git commit -m "chore: update updates.json for ${TAG}"
+          git push

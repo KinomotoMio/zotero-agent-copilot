@@ -1,0 +1,12 @@
+{
+  "addons": {
+    "zotero-agent-copilot@KinomotoMio.github.io": {
+      "updates": [
+        {
+          "version": "0.1.0",
+          "update_link": "https://github.com/KinomotoMio/zotero-agent-copilot/releases/download/v0.1.0/zotero-agent-copilot-0.1.0.xpi"
+        }
+      ]
+    }
+  }
+}

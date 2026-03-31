@@ -1,0 +1,10 @@
+{
+  "name": "zotero-agent-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zotero 8 plugin for AI workspaces and external agent launch.",
+  "scripts": {
+    "build": "node scripts/build-xpi.mjs",
+    "test": "node --test tests/*.test.js"
+  }
+}
